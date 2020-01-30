@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
+
 export default class MovieList extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -11,27 +13,33 @@ export default class MovieList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:5000/api/movies")
-      .then(res => this.setState({ movies: res.data }))
-      .catch(err => console.log(err.response));
+    axios.get("http://localhost:5000/api/movies")
+      .then((res) =>
+        this.setState({ movies: res.data })
+      )
+      .catch((err) =>
+        console.log(err.response)
+      );
   }
 
   render() {
     return (
       <div className="movie-list">
-        {this.state.movies.map(movie => (
+        {this.state.movies.map((movie) => (
           <MovieDetails key={movie.id} movie={movie} />
         ))}
       </div>
     );
   }
+
 }
 
-function MovieDetails({ movie }) {
+function MovieDetails({ movie }) { //functional component; movie prop is destructured as {movie} to keep from having to insert props.movie or props.movie.id
+
   return (
     <Link to={`/movies/${movie.id}`}>
       <MovieCard movie={movie} />
     </Link>
   );
+
 }
