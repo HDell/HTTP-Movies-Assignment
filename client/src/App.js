@@ -26,7 +26,10 @@ const App = () => {
 
   //setters (functions)
   const addToSavedList = (movie) => {
-    setSavedList([...savedList, movie]);
+      const movieToSave = savedList.find((item) => `${item.id}` === `${movie.id}`);
+      if(!movieToSave) {
+        setSavedList([...savedList, movie]);
+      }
   };
 
   return (
